@@ -1,20 +1,15 @@
-﻿using System.Threading.Channels;
-
-namespace MathGame
+﻿namespace MathGame
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Math Game");
-            Console.WriteLine("---------");
-            Console.WriteLine();
-            Console.WriteLine("1. Start Game");
-            Console.WriteLine("2. List Results");
-            Console.WriteLine("0. Exit");
-            bool isRunning = true;
-            while (isRunning)
+            var game = new Game(Difficulty.Easy);
+            while (true)
             {
+                Console.Clear();
+                DisplayMenu();
+
                 Console.WriteLine();
                 Console.Write("Please choose a number:");
                 bool success = int.TryParse(Console.ReadLine(), out int userOption);
@@ -25,21 +20,36 @@ namespace MathGame
                 }
                 switch (userOption)
                 {
-                    case 1: 
-                        Console.WriteLine("You chose 1");
+                    case 1:
+                        game.CreateQuestion();
                         break;
                     case 2:
-                        Console.WriteLine("2");
+                        // TODO: Implement show result.
+                        break;
+                    case 3:
+                        // TODO: Implement change difficulty.
                         break;
                     case 0:
                         Console.WriteLine("Goodbye!");
-                        isRunning = false;
-                        break;
+                        return;
                     default:
                         Console.WriteLine("Please choose one of the numbers of the list.");
                         break;
                 }
+                Console.ReadKey();
             }
+        }
+
+        private static void DisplayMenu()
+        {
+            Console.WriteLine("Math Game");
+            Console.WriteLine("---------");
+            Console.WriteLine();
+            Console.WriteLine("1. Start Game");
+            Console.WriteLine("2. List Results");
+            Console.WriteLine("3. Set game difficulty");
+            Console.WriteLine("0. Exit");
+
         }
     }
 }
